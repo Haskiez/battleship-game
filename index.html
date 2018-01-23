@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<head>
+    <!-- Insert Logo next to Title -->
+    <link rel="shortcut icon" href="icons/logo.ico">
+    <!-- Insert CSS for this page -->
+    <link rel="stylesheet" href="styles/all-pages.css">
+    <link rel="stylesheet" href="styles/index.css">
+    <!-- Title of Webpage -->
+    <title>Battleship - Home</title>
+</head>
+<body>
+    <div class="heading">
+        <div class="heading-text">
+            <h1>Battleship Game</h1>
+            <h4>Created by: Braden Haskell</h4>
+        </div>
+        <div class="heading-logo">
+            <img src="icons/logo.ico" alt="Battleship Logo">
+        </div>
+    </div>
+    <div>
+        <!-- Game Description -->
+        <h2>Description:</h2>
+        <div id="samplePic">
+            <p>Some Pic of Sample Game</p>
+        </div>
+        <ul>
+            <!-- How to Play Section -->
+            <li>
+                <h3>How to Play:</h3>
+                <ul>
+                    <!-- Game Setup and What to Expect -->
+                    <li>
+                        <p>Prepare for Battle!</p>
+                        <ul>
+                            <li class="info-text">Before you begin, you will be asked to select the difficulty of the computer you will be playing against. You can choose from easy, experienced, and insane. Each level is harder than the last. Your score against the computer will be recoreded and you'll be able to see how well you have done in each difficulty.</li>
+                            <li class="info-text">You will start the game by placing your ships along the game board. To place your ship, simply click the ship and click a valid place on the game board. Once the game starts, you won't be able to move them, so choose wisely.</li>
+                            <li class="info-text">
+                                You will be given 5 ships to place on the game board
+                                <ul class="ships">
+                                    <!-- Aircraft Carrier Info -->
+                                    <li title="Image can be found at http://www.supercoloring.com/" class="info-text ship-info"><span class="ship-name"><img class="icons" src="icons/carrier-blk.svg" alt="Aircraft Carrier Picture"> <strong>Carrier:</strong></span><span class="ship-length">5 Squares Long</span></li>
+                                    <!-- Battleship Info -->
+                                    <li title="Image can be found at http://www.supercoloring.com/" class="info-text ship-info"><span class="ship-name"><img class="icons" src="icons/battleship-blk.svg" alt="Battleship Picture"> <strong>Battleship:</strong></span><span class="ship-length">4 Squares Long</span></li>
+                                    <!-- Cruiser Info -->
+                                    <li title="Image can be found at http://www.supercoloring.com/" class="info-text ship-info"><span class="ship-name"><img class="icons" src="icons/cruiser-blk.svg" alt="Cruiser Picture"> <strong>Cruiser:</strong></span><span class="ship-length">3 Squares Long</span></li>
+                                    <!-- Submarine Info -->
+                                    <li title="Image can be found at http://www.supercoloring.com/" class="info-text ship-info"><span class="ship-name"><img class="icons" src="icons/submarine-blk.svg" alt="Submarine Picture"> <strong>Submarine:</strong></span><span class="ship-length">3 Squares Long</span></li>
+                                    <!-- Destroyer Info -->
+                                    <li title="Image can be found at http://www.supercoloring.com/" class="info-text ship-info"><span class="ship-name"><img class="icons" src="icons/destroyer-blk.svg" alt="Destroyer Picture"> <strong>Destroyer:</strong></span><span class="ship-length">2 Squares Long</span></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- Taking a Turn -->
+                    <li>
+                        <p>Time to Shine!</p>
+                        <ul>
+                                <li class="info-text">You are ready to take your turn. Turns work very simply, you will always start first. The computer will immediately go after you and you will continue alternating turns until someone wins. Simply click a square on the game board and it will show a hit or a miss (more on these later). Once you have shot your cannonball the computer will go and so on and so forth.</li>
+                        </ul>
+                    </li>
+                    <!-- Picking a Place to Shoot -->
+                    <li>
+                        <p>Take a Shot!</p>
+                        <ul>
+                                <li class="info-text">Deciding where to shoot can be a tough decision. If you choose wrong, that could be end of the game! So choose wisely. Each shot you take on your opponents board will show either gray or red. If the square is gray, then that means you have previously shot there and it considered a miss. If the square is red then that is a shot you took previously that was a hit.</li>
+                                <li class="info-text">A miss is pretty straightforward. The square you guessed was not a place where your opponenets ship was. A hit is the opposite. This square designates one part of the ship that is on your opponenets game board.</li>
+                                <li class="info-text"><strong>Quick Tip:</strong> Since ships can't be placed diagonally, when you get a hit, go ahead and shoot around that spot. You are bound to get another hit eventually and you can follow that straight line to sink the ship.</li>
+                        </ul>
+                    </li>
+                    <!-- Winning the Game -->
+                    <li>
+                        <p>Winning the Game!</p>
+                        <ul>
+                                <li class="info-text">Winning the game is fairly simple, just sink all your opponents ships! You do this by calling shots and being strategic! Two of the best strategies are, first, getting in your opponenets head to think like them and know where they would have placed their ships, and the second, is to think mathmatically.</li>
+                                <li class="info-text">Good Luck!</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <p><a href="https://www.hasbro.com/common/instruct/Battleship.PDF" target="_blank">Link to more in-depth instructions can be found here.</a></p>
+                    </li>
+                </ul>
+                <li>
+                    
+                </li>
+                <!-- Game State Section -->
+                <li>
+                    <h3 class="game-start-text"><a href="game-grid.html">Start Game!</a></h3>
+                    <h3>Game State:</h3>
+                    <ul>
+                        <li>
+                            <!-- JSON Data -->
+                            <p>JSON Representation of Game State:</p>
+                            <ul>
+                                <!-- Code -->
+                                <li class="info-text">
+<!-- Code is only indented this way to show correctly on page. -->
+<pre><code>
+    gameState: {
+        // For the *BoatPlacement arrays, this will all be integer arrays representing the game board
+        // Each value corresponds to which boat is being represented, for example, the carrier's
+        // spots will be designated by the integer 1 and the destroyer by integer 5.
+        // A zero in the spot means it was hit.
+        // We know a ship was sunk when there are no integers representing it in the matrix.
+        "playerBoatPlacement":       [
+            [1, 1, 0, 1, 1, null, null, null, null, null],
+            [null, null, null, null, null, null, 3, null, null, null],
+            [null, null, null, null, null, null, 3, null, null, null],
+            [null, null, null, null, null, null, 3, null, null, null],
+            [null, null, null, null, null, null, null, null, null, null],
+            [null, null, 2, 2, 0, 2, null, null, null, null],
+            [null, null, null, null, null, null, null, 5, null, null],
+            [null, null, null, null, 4, null, null, 5, null, null],
+            [null, null, null, null, 0, null, null, null, null, null],
+            [null, null, null, null, 4, null, null, null, null, null]
+        ],
+        "computerBoatPlacement":     [
+            [1, 1, 0, 0, 1, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null, null, null],
+            [null, 5, 0, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, 2, 2, 2, 0],
+            [null, null, null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null, null, null],
+            [null, 3, 3, 3, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null, null, null],
+            [null, null, null, null, 4, 4, 4, null, null, null]
+        ],
+
+        // The *Boats array will just keep track of whether a boat has been sunk using an associative array
+        // Using the boats names as the keys. A 0 means it hasn't been sunk, and a 1 means it has.
+        // After every hit, we will look at in the *BoatPlacement matrix for each integer, if none are
+        // Represented, then we can set that boat as sunk.
+        "playerBoats":      ["carrier": 0, "battleship": 0, "cruiser": 1, "submarine": 0, "destroyer": 0],
+        "computerBoats":    ["carrier": 1, "battleship": 0, "cruiser": 1, "submarine": 0, "destroyer": 1],
+        
+        // The *Shots array is the game board grid keeping track of where the player/computer has shot
+        // null represents a spot that hasn't been shot at, 0 is a miss, and 1 is a hit.
+        "playerShots":      [
+            [null, null, 1, null, null, null, null, null, null, 0],
+            [null, null, null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null, null, null],
+            [null, 0, null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, 0, null, null],
+            [0, null, null, null, 1, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null, null, null],
+            [null, null, null, null, 1, null, 0, null, null, null],
+            [null, null, null, null, null, null, null, null, null, 0]
+        ],
+        "computerShots":    [
+            [null, null, 1, 1, null, null, null, 0, null, null],
+            [null, null, null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, 0, null, null, null, null],
+            [null, null, 1, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null, null, 1],
+            [null, null, null, 0, null, null, null, null, null, null],
+            [0, null, null, null, null, 0, null, null, null, null],
+            [null, null, null, null, null, null, null, null, null, null],
+            [null, null, null, 0, null, null, null, 0, null, null],
+            [null, null, null, null, null, null, null, null, null, 0]
+        ],
+        
+        // Turn variable will determine whose turn it is. 1 is for player. 2 is for computer.
+        "turn":             1,
+
+        // Gameover really just determines if either player has all their ships sunk,
+        // if so, the other player wins.
+        "gameOver":         false
+    }
+</code></pre>
+<!-- End Code Indention -->
+                                </li>
+                                <!-- End Code -->
+                            </ul>
+                            <!-- End JSON Data -->
+                        </li>
+                    </ul>
+                </li>
+                <!-- End Game State Section -->
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

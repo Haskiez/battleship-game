@@ -1,0 +1,53 @@
+.heading {
+    border-bottom: solid 5px rgb(180, 42, 37);
+    overflow: hidden;
+    /* rgba(255, 0, 0, 0.863); */
+}
+
+.heading-text {
+    width: 70%;
+    float: left;
+}
+
+.heading-logo {
+    float: right;
+    overflow: hidden;
+}
+
+.heading-logo > img {
+    width: 100px;
+    height: 100px;
+}
+
+ul {
+    padding-left: 30px;
+    list-style-type: none;
+    padding-right: 30px;
+}
+
+ul > li > p {
+    margin: 10px;
+    font-weight: bold;
+}
+
+.info-text {
+    margin-bottom: 5px;
+}
+
+.ships {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.ship-info {
+    width: 400px;
+}
+
+.ship-length {
+    float: right;
+}
+
+.icons {
+    height: 100%;
+    width: 60px;
+}
