@@ -1,0 +1,48 @@
+table {
+    display: inline-table;
+    width: 40%;
+    height: 500px;
+    border-collapse: collapse;
+}
+
+table th:first-child {
+    border: none !important;
+}
+
+th, td {
+    border: 1px solid lightslategray;
+    height: 50px;
+    width: 50px;
+}
+
+.computer-board {
+    float: right;
+}
+
+.textarea-container {
+    display: inline;
+    overflow: hidden;
+}
+
+.row-number {
+    font-weight: bold;
+    text-align: center;
+}
+
+.hit-box {
+    cursor: pointer;
+    text-align: center;
+    background-color: rgb(228, 228, 228);;
+}
+
+.miss {
+    background-color: lightslategray;
+}
+
+.hit {
+    background-color: rgb(180, 42, 37);
+}
+
+.ship {
+    background-color: rgb(63, 63, 63);
+}

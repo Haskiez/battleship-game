@@ -51,3 +51,17 @@ ul > li > p {
     height: 100%;
     width: 60px;
 }
+
+.game-start-text {
+    text-align: center;
+    font-size: 30px;
+}
+
+.sample-pic {
+    width: 800px;
+    height: 300px;
+}
+
+.sample-pic-container {
+    text-align: center;
+}

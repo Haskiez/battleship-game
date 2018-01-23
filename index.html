@@ -21,8 +21,8 @@
     <div>
         <!-- Game Description -->
         <h2>Description:</h2>
-        <div id="samplePic">
-            <p>Some Pic of Sample Game</p>
+        <div class="sample-pic-container">
+            <img class="sample-pic" src="icons/battleshipdemo.png" alt="Battleship Demo Picture">
         </div>
         <ul>
             <!-- How to Play Section -->
@@ -80,104 +80,10 @@
                         <p><a href="https://www.hasbro.com/common/instruct/Battleship.PDF" target="_blank">Link to more in-depth instructions can be found here.</a></p>
                     </li>
                 </ul>
-                <li>
-                    
-                </li>
                 <!-- Game State Section -->
-                <li>
-                    <h3 class="game-start-text"><a href="game-grid.html">Start Game!</a></h3>
-                    <h3>Game State:</h3>
-                    <ul>
-                        <li>
-                            <!-- JSON Data -->
-                            <p>JSON Representation of Game State:</p>
-                            <ul>
-                                <!-- Code -->
-                                <li class="info-text">
-<!-- Code is only indented this way to show correctly on page. -->
-<pre><code>
-    gameState: {
-        // For the *BoatPlacement arrays, this will all be integer arrays representing the game board
-        // Each value corresponds to which boat is being represented, for example, the carrier's
-        // spots will be designated by the integer 1 and the destroyer by integer 5.
-        // A zero in the spot means it was hit.
-        // We know a ship was sunk when there are no integers representing it in the matrix.
-        "playerBoatPlacement":       [
-            [1, 1, 0, 1, 1, null, null, null, null, null],
-            [null, null, null, null, null, null, 3, null, null, null],
-            [null, null, null, null, null, null, 3, null, null, null],
-            [null, null, null, null, null, null, 3, null, null, null],
-            [null, null, null, null, null, null, null, null, null, null],
-            [null, null, 2, 2, 0, 2, null, null, null, null],
-            [null, null, null, null, null, null, null, 5, null, null],
-            [null, null, null, null, 4, null, null, 5, null, null],
-            [null, null, null, null, 0, null, null, null, null, null],
-            [null, null, null, null, 4, null, null, null, null, null]
-        ],
-        "computerBoatPlacement":     [
-            [1, 1, 0, 0, 1, null, null, null, null, null],
-            [null, null, null, null, null, null, null, null, null, null],
-            [null, null, null, null, null, null, null, null, null, null],
-            [null, 5, 0, null, null, null, null, null, null, null],
-            [null, null, null, null, null, null, 2, 2, 2, 0],
-            [null, null, null, null, null, null, null, null, null, null],
-            [null, null, null, null, null, null, null, null, null, null],
-            [null, 3, 3, 3, null, null, null, null, null, null],
-            [null, null, null, null, null, null, null, null, null, null],
-            [null, null, null, null, 4, 4, 4, null, null, null]
-        ],
-
-        // The *Boats array will just keep track of whether a boat has been sunk using an associative array
-        // Using the boats names as the keys. A 0 means it hasn't been sunk, and a 1 means it has.
-        // After every hit, we will look at in the *BoatPlacement matrix for each integer, if none are
-        // Represented, then we can set that boat as sunk.
-        "playerBoats":      ["carrier": 0, "battleship": 0, "cruiser": 1, "submarine": 0, "destroyer": 0],
-        "computerBoats":    ["carrier": 1, "battleship": 0, "cruiser": 1, "submarine": 0, "destroyer": 1],
-        
-        // The *Shots array is the game board grid keeping track of where the player/computer has shot
-        // null represents a spot that hasn't been shot at, 0 is a miss, and 1 is a hit.
-        "playerShots":      [
-            [null, null, 1, null, null, null, null, null, null, 0],
-            [null, null, null, null, null, null, null, null, null, null],
-            [null, null, null, null, null, null, null, null, null, null],
-            [null, 0, null, null, null, null, null, null, null, null],
-            [null, null, null, null, null, null, null, 0, null, null],
-            [0, null, null, null, 1, null, null, null, null, null],
-            [null, null, null, null, null, null, null, null, null, null],
-            [null, null, null, null, null, null, null, null, null, null],
-            [null, null, null, null, 1, null, 0, null, null, null],
-            [null, null, null, null, null, null, null, null, null, 0]
-        ],
-        "computerShots":    [
-            [null, null, 1, 1, null, null, null, 0, null, null],
-            [null, null, null, null, null, null, null, null, null, null],
-            [null, null, null, null, null, 0, null, null, null, null],
-            [null, null, 1, null, null, null, null, null, null, null],
-            [null, null, null, null, null, null, null, null, null, 1],
-            [null, null, null, 0, null, null, null, null, null, null],
-            [0, null, null, null, null, 0, null, null, null, null],
-            [null, null, null, null, null, null, null, null, null, null],
-            [null, null, null, 0, null, null, null, 0, null, null],
-            [null, null, null, null, null, null, null, null, null, 0]
-        ],
-        
-        // Turn variable will determine whose turn it is. 1 is for player. 2 is for computer.
-        "turn":             1,
-
-        // Gameover really just determines if either player has all their ships sunk,
-        // if so, the other player wins.
-        "gameOver":         false
-    }
-</code></pre>
-<!-- End Code Indention -->
-                                </li>
-                                <!-- End Code -->
-                            </ul>
-                            <!-- End JSON Data -->
-                        </li>
-                    </ul>
+                <li class="game-start-text">
+                    <h3><a href="game-grid.html">Go to Game Grid Example!</a></h3>
                 </li>
-                <!-- End Game State Section -->
             </li>
         </ul>
     </div>

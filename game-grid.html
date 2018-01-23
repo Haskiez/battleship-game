@@ -1,10 +1,796 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles/game-grid.css">
+    <script src="https://use.fontawesome.com/f917798517.js"></script>
     <title>Battleship - Game Grid</title>
 </head>
+
 <body>
+    <div>
+        <table class="player-board" width="40%" height="500px">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>A</th>
+                    <th>B</th>
+                    <th>C</th>
+                    <th>D</th>
+                    <th>E</th>
+                    <th>F</th>
+                    <th>G</th>
+                    <th>H</th>
+                    <th>I</th>
+                    <th>J</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="row-number">1</td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row-number">2</td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row-number">3</td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row-number">4</td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row-number">5</td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row-number">6</td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row-number">7</td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row-number">8</td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row-number">9</td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row-number">10</td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- <div class="textarea-container">
+            <textarea name="" id="" cols="30" rows="10"></textarea>
+        </div> -->
+        <table class="computer-board">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>A</th>
+                    <th>B</th>
+                    <th>C</th>
+                    <th>D</th>
+                    <th>E</th>
+                    <th>F</th>
+                    <th>G</th>
+                    <th>H</th>
+                    <th>I</th>
+                    <th>J</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="row-number">1</td>
+                    <td class="hit-box ship">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box ship">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box ship">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row-number">2</td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box hit">
+                        <i class="fa fa-circle"></i>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row-number">3</td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box ship">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row-number">4</td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box miss">
+                        <i class="fa fa-circle"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row-number">5</td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box miss">
+                        <i class="fa fa-circle"></i>
+                    </td>
+                    <td class="hit-box ship">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box ship">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box hit">
+                        <i class="fa fa-circle"></i>
+                    </td>
+                    <td class="hit-box miss">
+                        <i class="fa fa-circle"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row-number">6</td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box miss">
+                        <i class="fa fa-circle"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box ship">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row-number">7</td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box miss">
+                        <i class="fa fa-circle"></i>
+                    </td>
+                    <td class="hit-box ship">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row-number">8</td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box ship">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row-number">9</td>
+                    <td class="hit-box miss">
+                        <i class="fa fa-circle"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box miss">
+                        <i class="fa fa-circle"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box ship">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row-number">10</td>
+                    <td class="hit-box ship">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box ship">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box ship">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box ship">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box miss">
+                        <i class="fa fa-circle"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                    <td class="hit-box ship">
+                        <i class="fa fa-circle-thin"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="game-state">
+        <h3>Game State</h3>
+<pre><code>
+        gameState: {
+            // For the *BoatPlacement arrays, this will all be integer arrays representing the game board
+            // Each value corresponds to which boat is being represented, for example, the carrier's
+            // spots will be designated by the integer 1 and the destroyer by integer 5.
+            // A zero in the spot means it was hit.
+            // We know a ship was sunk when there are no integers representing it in the matrix.
+            "playerBoatPlacement":       [
+                [1, 1, 0, 1, 1, null, null, null, null, null],
+                [null, null, null, null, null, null, 3, null, null, null],
+                [null, null, null, null, null, null, 3, null, null, null],
+                [null, null, null, null, null, null, 3, null, null, null],
+                [null, null, null, null, null, null, null, null, null, null],
+                [null, null, 2, 2, 0, 2, null, null, null, null],
+                [null, null, null, null, null, null, null, 5, null, null],
+                [null, null, null, null, 4, null, null, 5, null, null],
+                [null, null, null, null, 0, null, null, null, null, null],
+                [null, null, null, null, 4, null, null, null, null, null]
+            ],
+            "computerBoatPlacement":     [
+                [1, 1, 0, 0, 1, null, null, null, null, null],
+                [null, null, null, null, null, null, null, null, null, null],
+                [null, null, null, null, null, null, null, null, null, null],
+                [null, 5, 0, null, null, null, null, null, null, null],
+                [null, null, null, null, null, null, 2, 2, 2, 0],
+                [null, null, null, null, null, null, null, null, null, null],
+                [null, null, null, null, null, null, null, null, null, null],
+                [null, 3, 3, 3, null, null, null, null, null, null],
+                [null, null, null, null, null, null, null, null, null, null],
+                [null, null, null, null, 4, 4, 4, null, null, null]
+            ],
     
+            // The *Boats array will just keep track of whether a boat has been sunk using an associative array
+            // Using the boats names as the keys. A 0 means it hasn't been sunk, and a 1 means it has.
+            // After every hit, we will look at in the *BoatPlacement matrix for each integer, if none are
+            // Represented, then we can set that boat as sunk.
+            "playerBoats":      ["carrier": 0, "battleship": 0, "cruiser": 1, "submarine": 0, "destroyer": 0],
+            "computerBoats":    ["carrier": 1, "battleship": 0, "cruiser": 1, "submarine": 0, "destroyer": 1],
+            
+            // The *Shots array is the game board grid keeping track of where the player/computer has shot
+            // null represents a spot that hasn't been shot at, 0 is a miss, and 1 is a hit.
+            "playerShots":      [
+                [null, null, 1, null, null, null, null, null, null, 0],
+                [null, null, null, null, null, null, null, null, null, null],
+                [null, null, null, null, null, null, null, null, null, null],
+                [null, 0, null, null, null, null, null, null, null, null],
+                [null, null, null, null, null, null, null, 0, null, null],
+                [0, null, null, null, 1, null, null, null, null, null],
+                [null, null, null, null, null, null, null, null, null, null],
+                [null, null, null, null, null, null, null, null, null, null],
+                [null, null, null, null, 1, null, 0, null, null, null],
+                [null, null, null, null, null, null, null, null, null, 0]
+            ],
+            "computerShots":    [
+                [null, null, 1, 1, null, null, null, 0, null, null],
+                [null, null, null, null, null, null, null, null, null, null],
+                [null, null, null, null, null, 0, null, null, null, null],
+                [null, null, 1, null, null, null, null, null, null, null],
+                [null, null, null, null, null, null, null, null, null, 1],
+                [null, null, null, 0, null, null, null, null, null, null],
+                [0, null, null, null, null, 0, null, null, null, null],
+                [null, null, null, null, null, null, null, null, null, null],
+                [null, null, null, 0, null, null, null, 0, null, null],
+                [null, null, null, null, null, null, null, null, null, 0]
+            ],
+            
+            // Turn variable will determine whose turn it is. 1 is for player. 2 is for computer.
+            "turn":             1,
+    
+            // Gameover really just determines if either player has all their ships sunk,
+            // if so, the other player wins.
+            "gameOver":         false
+        }
+</code></pre>
+    </div>
 </body>
+
 </html>
