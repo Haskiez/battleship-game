@@ -1,15 +1,15 @@
 table {
     display: inline-table;
-    width: 40%;
+    width: 45%;
     height: 500px;
     border-collapse: collapse;
 }
 
-.player-board th:first-child {
+#player-board th:first-child {
     border: none !important;
 }
 
-.computer-board th:last-child {
+#computer-board th:last-child {
     border: none !important;
 }
 
@@ -19,20 +19,9 @@ th, td {
     width: 50px;
 }
 
-.computer-board {
+#computer-board {
     float: right;
 }
-
-#game-notes {
-    white-space: pre-wrap;
-    display: inline;
-    width: 20%;
-}
-
-/* .textarea-container {
-    display: inline;
-    overflow: hidden;
-} */
 
 .row-number {
     font-weight: bold;
