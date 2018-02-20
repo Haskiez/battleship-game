@@ -35,11 +35,11 @@ th, td {
 }
 
 .miss {
-    background-color: lightslategray;
+    background-color: lightslategray !important;
 }
 
 .hit {
-    background-color: rgb(180, 42, 37);
+    background-color: rgb(180, 42, 37) !important;
 }
 
 .ship {
