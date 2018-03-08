@@ -12,11 +12,32 @@
 </head>
 
 <body>
+    <div class="scoreboard">
+        <span id="player-score"><strong>Player: </strong></span>
+        <button type="button" class="button" id="reset-button">Reset</button>
+        <select name="ship-placement-select" id="ship-placement-select">
+            <option value="0">Random Placement</option>
+            <option value="1">Place My Own Ships</option>
+        </select>
+        <span id="computer-score"><strong>Computer: </strong></span>
+    </div>
+
     <div id="table-div"></div>
+
+    <div class="all-alert-notes">
+        <div class="alert-notes" id="game-alerts-player">
+            <strong class="alert-label" id="alert-label-player">Player Alerts:</strong>
+            <textarea name="textarea-player" id="textarea-player" rows="10"></textarea>
+        </div>
+        <div class="alert-notes" id="game-alerts-computer">
+            <strong class="alert-label" id="alert-label-computer">Computer Alerts:</strong>
+            <textarea name="textarea-computer" id="textarea-computer" rows="10"></textarea>
+        </div>
+    </div>
 
     <div class="game-state">
         <h3>Game State</h3>
-<pre><code>
+        <pre><code>
         gameState: {
             // For the *BoatPlacement arrays, this will all be integer arrays representing the game board
             // Each value corresponds to which boat is being represented, for example, the carrier's

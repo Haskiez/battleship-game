@@ -1,11 +1,13 @@
 // FUNCTIONS FOR MODEL
 var player = {
     "id": 1,
-    "last_shot": [0,0]
+    "last_shot": [0,0],
+    "wins": 0
 };
 var computer = {
     "id": 2,
-    "last_shot": [0,0]
+    "last_shot": [0,0],
+    "wins": 0
 };
 var playerShots = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],

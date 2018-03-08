@@ -3,8 +3,11 @@ document.onreadystatechange = function() {
         // create two table elements that go in table-div element
         var tableDiv = document.getElementById("table-div");
         tableDiv.innerHTML = "<table id='player-board'><thead></thead><tbody></tbody></table><table id='computer-board'><thead></thead><tbody></tbody></table>";
-        playerGrid = document.getElementById("player-board");
-        computerGrid = document.getElementById("computer-board");
+        var playerGrid = document.getElementById("player-board");
+        var computerGrid = document.getElementById("computer-board");
+        var playerAlerts = document.getElementById("textarea-player");
+        var computerAlerts = document.getElementById("textarea-computer");
+        var columnsLettersArr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
         // generate the game grids for each player
         generateGrid(11, 11, "player-board");
         generateGrid(11, 11, "computer-board");
@@ -22,9 +25,11 @@ document.onreadystatechange = function() {
                         var cellNumStr = this.getAttribute("data-cell-number");
                         var row = cellNumStr[0];
                         var col = cellNumStr[2];
+                        playerAlerts.innerHTML += "Shot made to " + columnsLettersArr[col] + (parseInt(row) + 1);
                         var goodShot = shot(1, row, col);
                         if (goodShot == 1) {
-                            alert("HIT");
+                            playerAlerts.innerHTML += " - HIT\n";
+                            playerAlerts.scrollTop = playerAlerts.scrollHeight;
                             var box = computerGrid.querySelector('[data-cell-number="' + row + ',' + col + '"]');
                             var icon = box.getElementsByTagName("i")[0];
                             icon.classList.remove("fa-circle-thin");
@@ -32,7 +37,8 @@ document.onreadystatechange = function() {
                             box.classList.add("hit");
                         }
                         else if (goodShot == 0) {
-                            alert("MISS");
+                            playerAlerts.innerHTML += " - MISS\n";
+                            playerAlerts.scrollTop = playerAlerts.scrollHeight;
                             var box = computerGrid.querySelector('[data-cell-number="' + row + ',' + col + '"]');
                             var icon = box.getElementsByTagName("i")[0];
                             icon.classList.remove("fa-circle-thin");
@@ -41,14 +47,20 @@ document.onreadystatechange = function() {
                         }
                     }
                     else {
-                        alert("That is not the right board.");
+                        playerAlerts.innerHTML += "Wrong Board!\n";
+                        playerAlerts.scrollTop = playerAlerts.scrollHeight;
                     }
                 }
                 else {
-                    alert("It's not your turn.");
+                    playerAlerts.innerHTML += "It's not your turn!\n";
+                    playerAlerts.scrollTop = playerAlerts.scrollHeight;
                 }
             });
         }
+        document.getElementById("reset-button").addEventListener("click", function() {
+            reset();
+            window.location.reload();
+        });
     }
 }
 
