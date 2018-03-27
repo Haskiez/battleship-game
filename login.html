@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="styles/all-pages.css">
+    <link rel="stylesheet" href="styles/login.css">
+    <script src="login.js"></script>
+    <title>Battleship - Login</title>
+</head>
+<body>
+    <div class="container">
+        <div class="flex-item">
+            <label for="userName">Username:</label>
+            <input type="text" name="userName" id="userName" placeholder="username" required>
+            <p class="errorText" id="usernameError">Username is required!</p>
+        </div>
+        <div class="flex-item">
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" placeholder="password" required>
+            <p class="errorText" id="passwordError">Password is required!</p>
+        </div>
+        <div class="flex-item">
+            <button type="button" id="loginBtn">Login!</button>
+        </div>
+    </div>
+</body>
+</html>

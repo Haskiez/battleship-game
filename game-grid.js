@@ -8,6 +8,9 @@ document.onreadystatechange = function() {
         var playerAlerts = document.getElementById("textarea-player");
         var computerAlerts = document.getElementById("textarea-computer");
         var columnsLettersArr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
+        // show login information
+        var loginInfo = document.getElementById('loginInfoP');
+        loginInfo.innerHTML = '<strong>' + localStorage.cs2550timestamp + '</strong>';
         // generate the game grids for each player
         generateGrid(11, 11, "player-board");
         generateGrid(11, 11, "computer-board");
@@ -67,7 +70,7 @@ document.onreadystatechange = function() {
 // FUNCTIONS FOR VIEW
 
 // generate the game grid
-// requires the number of rows and columns along with which table you are creating. 
+// requires the number of rows and columns along with which table you are creating.
 // This only table two parameters of either "player-board" and "computer-board".
 function generateGrid(rows, columns, tableName) {
     var table = document.getElementById(tableName);
