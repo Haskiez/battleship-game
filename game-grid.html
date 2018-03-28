@@ -12,15 +12,15 @@
 </head>
 
 <body>
-    <div id="loginInfo"><span id="loginInfoP"></span><button type="button" class="button">Clear Storage</button></div>
+    <div id="loginInfo"><span id="loginInfoP"></span><button type="button" class="button" id="clearStorageBtn">Clear Storage</button></div>
     <div class="scoreboard">
-        <span id="player-score"><strong>Player: 0</strong></span>
+        <span id="player-score"><strong>Player: <span id="player-score-number">0</span></strong></span>
         <button type="button" class="button" id="reset-button">Reset</button>
         <select name="ship-placement-select" id="ship-placement-select">
             <option value="0">Random Placement</option>
             <option value="1">Place My Own Ships</option>
         </select>
-        <span id="computer-score"><strong>Computer: 0</strong></span>
+        <span id="computer-score"><strong>Computer: <span id="computer-score-number">0</span></strong></span>
     </div>
 
     <div id="table-div"></div>

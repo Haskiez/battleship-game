@@ -10,7 +10,7 @@ document.onreadystatechange = function() {
         var columnsLettersArr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
         // show login information
         var loginInfo = document.getElementById('loginInfoP');
-        loginInfo.innerHTML = '<strong>' + localStorage.cs2550timestamp + '</strong>';
+        loginInfo.innerHTML = localStorage.cs2550timestamp ? '<strong>' + localStorage.cs2550timestamp + '</strong>' : '<strong>???</strong>';
         // generate the game grids for each player
         generateGrid(11, 11, "player-board");
         generateGrid(11, 11, "computer-board");
@@ -19,6 +19,11 @@ document.onreadystatechange = function() {
         showShips("computer-board", placeShipsComputer());
 
 
+        // add event listener to clear storage
+        document.getElementById('clearStorageBtn').addEventListener('click', function(){
+            clearStorageString();
+            loginInfo.innerHTML = localStorage.cs2550timestamp ? '<strong>' + localStorage.cs2550timestamp + '</strong>' : '<strong>???</strong>';
+        });
         // add on click event to all hit boxes in both tables
         var cells = document.getElementsByClassName("hit-box");
         for (var i = 0; i < cells.length; ++i) {
@@ -62,13 +67,29 @@ document.onreadystatechange = function() {
         }
         document.getElementById("reset-button").addEventListener("click", function() {
             reset();
-            window.location.reload();
+            document.querySelector('#player-board > tbody').innerHTML = '';
+            document.querySelector('#computer-board > tbody').innerHTML = '';
+            // playerGrid.innerHTML = '';
+            // computerGrid.innerHTML = '';
+            // generate the game grids for each player
+            generateGrid(11, 11, "player-board");
+            generateGrid(11, 11, "computer-board");
+            // show the ships on the board
+            showShips("player-board", placeShipsPlayer());
+            showShips("computer-board", placeShipsComputer());
+            // reset player and computer alerts
+            playerAlerts.innerHTML = "Alerts have been reset.";
+            computerAlerts.innerHTML = "Alerts have been reset.";
         });
     }
 }
 
 // FUNCTIONS FOR VIEW
 
+// Function to clear storage timestamp
+function clearStorageString() {
+    localStorage.removeItem('cs2550timestamp');
+}
 // generate the game grid
 // requires the number of rows and columns along with which table you are creating.
 // This only table two parameters of either "player-board" and "computer-board".
@@ -114,6 +135,7 @@ function generateGrid(rows, columns, tableName) {
     }
 }
 
+// Places the ships on the board for the player (and computer in testing)
 function showShips(tableName, grid) {
     var table = document.getElementById(tableName);
     for (var i = 0; i < grid.length; i++) {
