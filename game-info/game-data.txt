@@ -1,0 +1,156 @@
+{
+    "player": {
+        "id": 1,
+        "last_shot": [0,0],
+        "wins": 0
+    },
+    "computer": {
+        "id": 2,
+        "last_shot": [0,0],
+        "wins": 0
+    },
+    "playerShots": [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    ],
+    "computerShots": [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    ],
+    "playerShips": [
+        {
+            "name": "carrier",
+            "id": 1,
+            "head_location": [5,0],
+            "length": 5,
+            "orientation": null,
+            "hits": 0,
+            "sunk": false
+        },
+        {
+            "name": "battleship",
+            "id": 2,
+            "head_location": [5,2],
+            "length": 4,
+            "orientation": null,
+            "hits": 0,
+            "sunk": false
+        },
+        {
+            "name": "cruiser",
+            "id": 3,
+            "head_location": null,
+            "length": 3,
+            "orientation": null,
+            "hits": 0,
+            "sunk": false
+        },
+        {
+            "name": "submarine",
+            "id": 4,
+            "head_location": [1,7],
+            "length": 3,
+            "orientation": null,
+            "hits": 0,
+            "sunk": false
+        },
+        {
+            "name": "destroyer",
+            "id": 5,
+            "head_location": [1,9],
+            "length": 2,
+            "orientation": null,
+            "hits": 0,
+            "sunk": false
+        }
+    ],
+    "computerShips": [
+        {
+            "name": "carrier",
+            "id": 1,
+            "head_location": null,
+            "length": 5,
+            "orientation": null,
+            "hits": 0,
+            "sunk": false
+        },
+        {
+            "name": "battleship",
+            "id": 2,
+            "head_location": null,
+            "length": 4,
+            "orientation": null,
+            "hits": 0,
+            "sunk": false
+        },
+        {
+            "name": "cruiser",
+            "id": 3,
+            "head_location": null,
+            "length": 3,
+            "orientation": null,
+            "hits": 0,
+            "sunk": false
+        },
+        {
+            "name": "submarine",
+            "id": 4,
+            "head_location": null,
+            "length": 3,
+            "orientation": null,
+            "hits": 0,
+            "sunk": false
+        },
+        {
+            "name": "destroyer",
+            "id": 5,
+            "head_location": null,
+            "length": 2,
+            "orientation": null,
+            "hits": 0,
+            "sunk": false
+        }
+    ],
+    "playerShipPlacement": [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    ],
+    "computerShipPlacement":[
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    ],
+    "gameOver": false,
+    "turn": 1
+}

@@ -10,7 +10,13 @@ document.onreadystatechange = function() {
         var columnsLettersArr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
         // show login information
         var loginInfo = document.getElementById('loginInfoP');
-        loginInfo.innerHTML = localStorage.cs2550timestamp ? '<strong>' + localStorage.cs2550timestamp + '</strong>' : '<strong>???</strong>';
+        loginInfo.innerHTML = localStorage.username ? '<strong>' + localStorage.cs2550timestamp + '</strong>' : '<strong>No name</strong>';
+        if (localStorage.username) {
+            loginInfo.innerHTML = '<strong>' + localStorage.name + '<br>' + localStorage.username + '<br>' + localStorage.date + '</strong>';
+        }
+        else {
+            loginInfo.innerHTML = '<strong>No Username</strong>';
+        }
         // generate the game grids for each player
         generateGrid(11, 11, "player-board");
         generateGrid(11, 11, "computer-board");
@@ -22,20 +28,19 @@ document.onreadystatechange = function() {
         // add event listener to clear storage
         document.getElementById('clearStorageBtn').addEventListener('click', function(){
             clearStorageString();
-            loginInfo.innerHTML = localStorage.cs2550timestamp ? '<strong>' + localStorage.cs2550timestamp + '</strong>' : '<strong>???</strong>';
+            loginInfo.innerHTML = '<strong>No Username</strong>';
         });
         // add on click event to all hit boxes in both tables
-        var cells = document.getElementsByClassName("hit-box");
-        for (var i = 0; i < cells.length; ++i) {
-            cells[i].addEventListener("click", function() {
+        document.querySelector('#table-div').addEventListener('click', function(e){
+            if(e.target.classList.contains('hit-box')) {
                 if (turn == 1) {
-                    if (this.getAttribute("data-board-id") != 1) {
-                        var cellNumStr = this.getAttribute("data-cell-number");
+                    if (e.target.getAttribute("data-board-id") != 1) {
+                        var cellNumStr = e.target.getAttribute("data-cell-number");
                         var row = cellNumStr[0];
                         var col = cellNumStr[2];
                         playerAlerts.innerHTML += "Shot made to " + columnsLettersArr[col] + (parseInt(row) + 1);
                         var goodShot = shot(1, row, col);
-                        if (goodShot == 1) {
+                        if (goodShot == 1 || goodShot == 2) {
                             playerAlerts.innerHTML += " - HIT\n";
                             playerAlerts.scrollTop = playerAlerts.scrollHeight;
                             var box = computerGrid.querySelector('[data-cell-number="' + row + ',' + col + '"]');
@@ -43,6 +48,96 @@ document.onreadystatechange = function() {
                             icon.classList.remove("fa-circle-thin");
                             icon.classList.add("fa-circle");
                             box.classList.add("hit");
+                            if (goodShot == 2) {
+                                if (isWin(1)) {
+                                    alert("YOU WON THE GAME!");
+                                    document.getElementById('player-score-number').innerHTML = player.wins;
+                                }
+                                // Time for computer to take a shot
+                                else {
+                                    // Variable to hold what is returned from computerCalcShot();
+                                    var computerShotVal = computerCalcShot();
+                                    console.log(computerShotVal);
+                                    // Get where the last shot took place
+                                    var computerLastShot = computer.last_shot;
+                                    console.log(computerLastShot);
+
+                                    // If it was a hit
+                                    if (computerShotVal != 0) {
+                                        // Add the alert to the computer alerts box
+                                        computerAlerts.innerHTML += "Shot made to " + columnsLettersArr[computerLastShot[1]] + "" + (parseInt(computerLastShot[0]) + 1) + " - HIT\n";
+                                        // Keep textarea scrolled to bottom
+                                        computerAlerts.scrollTop = computerAlerts.scrollHeight;
+
+                                        // Change the players grid to reflect this shot
+                                        var cbox = playerGrid.querySelector('[data-cell-number="' + computerLastShot[0] + ',' + computerLastShot[1] + '"]');
+                                        var cicon = cbox.getElementsByTagName("i")[0];
+                                        cicon.classList.remove("fa-circle-thin");
+                                        cicon.classList.add("fa-circle");
+                                        cbox.classList.add("hit");
+
+                                        // if the computer shot val is equal to 2 then the game ends because the computer won
+                                        if (computerShotVal == 2) {
+                                            if (isWin(computer.id)) {
+                                                alert("COMPUTER WON THE GAME!");
+                                                document.getElementById('computer-score-number').innerHTML = computer.wins;
+                                            }
+                                        }
+                                    }
+                                    // else it was a miss
+                                    else {
+                                        computerAlerts.innerHTML += "Shot made to " + columnsLettersArr[computerLastShot[1]] + "" + (parseInt(computerLastShot[0]) + 1) + " - MISS\n";
+                                        playerAlerts.scrollTop = playerAlerts.scrollHeight;
+                                        var cbox = playerGrid.querySelector('[data-cell-number="' + computerLastShot[0] + ',' + computerLastShot[1] + '"]');
+                                        var cicon = cbox.getElementsByTagName("i")[0];
+                                        cicon.classList.remove("fa-circle-thin");
+                                        cicon.classList.add("fa-circle");
+                                        cbox.classList.add("miss");
+                                    }
+                                }
+                            }
+                            // Time for computer to take a shot
+                            else {
+                                // Variable to hold what is returned from computerCalcShot();
+                                var computerShotVal = computerCalcShot();
+                                console.log(computerShotVal);
+                                // Get where the last shot took place
+                                var computerLastShot = computer.last_shot;
+                                console.log(computerLastShot);
+
+                                // If it was a hit
+                                if (computerShotVal != 0) {
+                                    // Add the alert to the computer alerts box
+                                    computerAlerts.innerHTML += "Shot made to " + columnsLettersArr[computerLastShot[1]] + "" + (parseInt(computerLastShot[0]) + 1) + " - HIT\n";
+                                    // Keep textarea scrolled to bottom
+                                    computerAlerts.scrollTop = computerAlerts.scrollHeight;
+
+                                    // Change the players grid to reflect this shot
+                                    var cbox = playerGrid.querySelector('[data-cell-number="' + computerLastShot[0] + ',' + computerLastShot[1] + '"]');
+                                    var cicon = cbox.getElementsByTagName("i")[0];
+                                    cicon.classList.remove("fa-circle-thin");
+                                    cicon.classList.add("fa-circle");
+                                    cbox.classList.add("hit");
+
+                                    // if the computer shot val is equal to 2 then the game ends because the computer won
+                                    if (computerShotVal == 2) {
+                                        if (isWin(computer.id)) {
+                                            alert("COMPUTER WON THE GAME!");
+                                            document.getElementById('computer-score-number').innerHTML = computer.wins;
+                                        }
+                                    }
+                                }
+                                // else it was a miss
+                                else {
+                                    computerAlerts.innerHTML += "Shot made to " + columnsLettersArr[computerLastShot[1]] + "" + (parseInt(computerLastShot[0]) + 1) + " - MISS\n";
+                                    playerAlerts.scrollTop = playerAlerts.scrollHeight;
+                                    var cbox = playerGrid.querySelector('[data-cell-number="' + computerLastShot[0] + ',' + computerLastShot[1] + '"]');
+                                    var cicon = cbox.getElementsByTagName("i")[0];
+                                    cicon.classList.remove("fa-circle-thin");
+                                    cicon.classList.add("fa-circle");
+                                    cbox.classList.add("miss");
+                                }
+                            }
                         }
                         else if (goodShot == 0) {
                             playerAlerts.innerHTML += " - MISS\n";
@@ -52,6 +147,47 @@ document.onreadystatechange = function() {
                             icon.classList.remove("fa-circle-thin");
                             icon.classList.add("fa-circle");
                             box.classList.add("miss");
+
+
+                            // Variable to hold what is returned from computerCalcShot();
+                            var computerShotVal = computerCalcShot();
+                            console.log(computerShotVal);
+                            // Get where the last shot took place
+                            var computerLastShot = computer.last_shot;
+                            console.log(computerLastShot);
+
+                            // If it was a hit
+                            if (computerShotVal != 0) {
+                                // Add the alert to the computer alerts box
+                                computerAlerts.innerHTML += "Shot made to " + columnsLettersArr[computerLastShot[1]] + "" + (parseInt(computerLastShot[0]) + 1) + " - HIT\n";
+                                // Keep textarea scrolled to bottom
+                                computerAlerts.scrollTop = computerAlerts.scrollHeight;
+
+                                // Change the players grid to reflect this shot
+                                var cbox = playerGrid.querySelector('[data-cell-number="' + computerLastShot[0] + ',' + computerLastShot[1] + '"]');
+                                var cicon = cbox.getElementsByTagName("i")[0];
+                                cicon.classList.remove("fa-circle-thin");
+                                cicon.classList.add("fa-circle");
+                                cbox.classList.add("hit");
+
+                                // if the computer shot val is equal to 2 then the game ends because the computer won
+                                if (computerShotVal == 2) {
+                                    if (isWin(computer.id)) {
+                                        alert("COMPUTER WON THE GAME!");
+                                        document.getElementById('computer-score-number').innerHTML = computer.wins;
+                                    }
+                                }
+                            }
+                            // else it was a miss
+                            else {
+                                computerAlerts.innerHTML += "Shot made to " + columnsLettersArr[computerLastShot[1]] + "" + (parseInt(computerLastShot[0]) + 1) + " - MISS\n";
+                                playerAlerts.scrollTop = playerAlerts.scrollHeight;
+                                var cbox = playerGrid.querySelector('[data-cell-number="' + computerLastShot[0] + ',' + computerLastShot[1] + '"]');
+                                var cicon = cbox.getElementsByTagName("i")[0];
+                                cicon.classList.remove("fa-circle-thin");
+                                cicon.classList.add("fa-circle");
+                                cbox.classList.add("miss");
+                            }
                         }
                     }
                     else {
@@ -63,14 +199,179 @@ document.onreadystatechange = function() {
                     playerAlerts.innerHTML += "It's not your turn!\n";
                     playerAlerts.scrollTop = playerAlerts.scrollHeight;
                 }
-            });
-        }
+            } else if (e.target.parentNode.classList.contains('hit-box')) {
+                if (turn == 1) {
+                    if (e.target.parentNode.getAttribute("data-board-id") != 1) {
+                        var cellNumStr = e.target.parentNode.getAttribute("data-cell-number");
+                        var row = cellNumStr[0];
+                        var col = cellNumStr[2];
+                        playerAlerts.innerHTML += "Shot made to " + columnsLettersArr[col] + (parseInt(row) + 1);
+                        var goodShot = shot(1, row, col);
+                        if (goodShot == 1 || goodShot == 2) {
+                            playerAlerts.innerHTML += " - HIT\n";
+                            playerAlerts.scrollTop = playerAlerts.scrollHeight;
+                            var box = computerGrid.querySelector('[data-cell-number="' + row + ',' + col + '"]');
+                            var icon = box.getElementsByTagName("i")[0];
+                            icon.classList.remove("fa-circle-thin");
+                            icon.classList.add("fa-circle");
+                            box.classList.add("hit");
+                            if (goodShot == 2) {
+                                if (isWin(1)) {
+                                    alert("YOU WON THE GAME!");
+                                    document.getElementById('player-score-number').innerHTML = player.wins;
+                                }
+                                else {
+                                    // Variable to hold what is returned from computerCalcShot();
+                                    var computerShotVal = computerCalcShot();
+                                    console.log(computerShotVal);
+                                    // Get where the last shot took place
+                                    var computerLastShot = computer.last_shot;
+                                    console.log(computerLastShot);
+
+                                    // If it was a hit
+                                    if (computerShotVal != 0) {
+                                        // Add the alert to the computer alerts box
+                                        computerAlerts.innerHTML += "Shot made to " + columnsLettersArr[computerLastShot[1]] + "" + (parseInt(computerLastShot[0]) + 1) + " - HIT\n";
+                                        // Keep textarea scrolled to bottom
+                                        computerAlerts.scrollTop = computerAlerts.scrollHeight;
+
+                                        // Change the players grid to reflect this shot
+                                        var cbox = playerGrid.querySelector('[data-cell-number="' + computerLastShot[0] + ',' + computerLastShot[1] + '"]');
+                                        var cicon = cbox.getElementsByTagName("i")[0];
+                                        cicon.classList.remove("fa-circle-thin");
+                                        cicon.classList.add("fa-circle");
+                                        cbox.classList.add("hit");
+
+                                        // if the computer shot val is equal to 2 then the game ends because the computer won
+                                        if (computerShotVal == 2) {
+                                            if (isWin(computer.id)) {
+                                                alert("COMPUTER WON THE GAME!");
+                                                document.getElementById('computer-score-number').innerHTML = computer.wins;
+                                            }
+                                        }
+                                    }
+                                    // else it was a miss
+                                    else {
+                                        computerAlerts.innerHTML += "Shot made to " + columnsLettersArr[computerLastShot[1]] + "" + (parseInt(computerLastShot[0]) + 1) + " - MISS\n";
+                                        playerAlerts.scrollTop = playerAlerts.scrollHeight;
+                                        var cbox = playerGrid.querySelector('[data-cell-number="' + computerLastShot[0] + ',' + computerLastShot[1] + '"]');
+                                        var cicon = cbox.getElementsByTagName("i")[0];
+                                        cicon.classList.remove("fa-circle-thin");
+                                        cicon.classList.add("fa-circle");
+                                        cbox.classList.add("miss");
+                                    }
+                                }
+                            }
+                            else {
+                                // Variable to hold what is returned from computerCalcShot();
+                                var computerShotVal = computerCalcShot();
+                                console.log(computerShotVal);
+                                // Get where the last shot took place
+                                var computerLastShot = computer.last_shot;
+                                console.log(computerLastShot);
+
+                                // If it was a hit
+                                if (computerShotVal != 0) {
+                                    // Add the alert to the computer alerts box
+                                    computerAlerts.innerHTML += "Shot made to " + columnsLettersArr[computerLastShot[1]] + "" + (parseInt(computerLastShot[0]) + 1) + " - HIT\n";
+                                    // Keep textarea scrolled to bottom
+                                    computerAlerts.scrollTop = computerAlerts.scrollHeight;
+
+                                    // Change the players grid to reflect this shot
+                                    var cbox = playerGrid.querySelector('[data-cell-number="' + computerLastShot[0] + ',' + computerLastShot[1] + '"]');
+                                    var cicon = cbox.getElementsByTagName("i")[0];
+                                    cicon.classList.remove("fa-circle-thin");
+                                    cicon.classList.add("fa-circle");
+                                    cbox.classList.add("hit");
+
+                                    // if the computer shot val is equal to 2 then the game ends because the computer won
+                                    if (computerShotVal == 2) {
+                                        if (isWin(computer.id)) {
+                                            alert("COMPUTER WON THE GAME!");
+                                            document.getElementById('computer-score-number').innerHTML = computer.wins;
+                                        }
+                                    }
+                                }
+                                // else it was a miss
+                                else {
+                                    computerAlerts.innerHTML += "Shot made to " + columnsLettersArr[computerLastShot[1]] + "" + (parseInt(computerLastShot[0]) + 1) + " - MISS\n";
+                                    playerAlerts.scrollTop = playerAlerts.scrollHeight;
+                                    var cbox = playerGrid.querySelector('[data-cell-number="' + computerLastShot[0] + ',' + computerLastShot[1] + '"]');
+                                    var cicon = cbox.getElementsByTagName("i")[0];
+                                    cicon.classList.remove("fa-circle-thin");
+                                    cicon.classList.add("fa-circle");
+                                    cbox.classList.add("miss");
+                                }
+                            }
+                        }
+                        else if (goodShot == 0) {
+                            playerAlerts.innerHTML += " - MISS\n";
+                            playerAlerts.scrollTop = playerAlerts.scrollHeight;
+                            var box = computerGrid.querySelector('[data-cell-number="' + row + ',' + col + '"]');
+                            var icon = box.getElementsByTagName("i")[0];
+                            icon.classList.remove("fa-circle-thin");
+                            icon.classList.add("fa-circle");
+                            box.classList.add("miss");
+                            
+                            
+                            // Variable to hold what is returned from computerCalcShot();
+                            var computerShotVal = computerCalcShot();
+                            console.log(computerShotVal);
+                            // Get where the last shot took place
+                            var computerLastShot = computer.last_shot;
+                            console.log(computerLastShot);
+
+                            // If it was a hit
+                            if (computerShotVal != 0) {
+                                // Add the alert to the computer alerts box
+                                computerAlerts.innerHTML += "Shot made to " + columnsLettersArr[computerLastShot[1]] + "" + (parseInt(computerLastShot[0]) + 1) + " - HIT\n";
+                                // Keep textarea scrolled to bottom
+                                computerAlerts.scrollTop = computerAlerts.scrollHeight;
+
+                                // Change the players grid to reflect this shot
+                                var cbox = playerGrid.querySelector('[data-cell-number="' + computerLastShot[0] + ',' + computerLastShot[1] + '"]');
+                                var cicon = cbox.getElementsByTagName("i")[0];
+                                cicon.classList.remove("fa-circle-thin");
+                                cicon.classList.add("fa-circle");
+                                cbox.classList.add("hit");
+
+                                // if the computer shot val is equal to 2 then the game ends because the computer won
+                                if (computerShotVal == 2) {
+                                    if (isWin(computer.id)) {
+                                        alert("COMPUTER WON THE GAME!");
+                                        document.getElementById('computer-score-number').innerHTML = computer.wins;
+                                    }
+                                }
+                            }
+                            // else it was a miss
+                            else {
+                                computerAlerts.innerHTML += "Shot made to " + columnsLettersArr[computerLastShot[1]] + "" + (parseInt(computerLastShot[0]) + 1) + " - MISS\n";
+                                playerAlerts.scrollTop = playerAlerts.scrollHeight;
+                                var cbox = playerGrid.querySelector('[data-cell-number="' + computerLastShot[0] + ',' + computerLastShot[1] + '"]');
+                                var cicon = cbox.getElementsByTagName("i")[0];
+                                cicon.classList.remove("fa-circle-thin");
+                                cicon.classList.add("fa-circle");
+                                cbox.classList.add("miss");
+                            }
+                        } else {
+                            console.log("GoodShot = " + goodShot);
+                        }
+                    }
+                    else {
+                        playerAlerts.innerHTML += "Wrong Board!\n";
+                        playerAlerts.scrollTop = playerAlerts.scrollHeight;
+                    }
+                }
+                else {
+                    playerAlerts.innerHTML += "It's not your turn!\n";
+                    playerAlerts.scrollTop = playerAlerts.scrollHeight;
+                }
+            }
+        });
         document.getElementById("reset-button").addEventListener("click", function() {
             reset();
             document.querySelector('#player-board > tbody').innerHTML = '';
             document.querySelector('#computer-board > tbody').innerHTML = '';
-            // playerGrid.innerHTML = '';
-            // computerGrid.innerHTML = '';
             // generate the game grids for each player
             generateGrid(11, 11, "player-board");
             generateGrid(11, 11, "computer-board");
@@ -81,6 +382,22 @@ document.onreadystatechange = function() {
             playerAlerts.innerHTML = "Alerts have been reset.";
             computerAlerts.innerHTML = "Alerts have been reset.";
         });
+
+        // Load saved game data
+        // document.getElementById("importSavedGame").addEventListener("click", function() {
+        //     loadSavedGame();
+        //     document.querySelector('#player-board > tbody').innerHTML = '';
+        //     document.querySelector('#computer-board > tbody').innerHTML = '';
+        //     // generate the game grids for each player
+        //     generateGrid(11, 11, "player-board");
+        //     generateGrid(11, 11, "computer-board");
+        //     // show the ships on the board
+        //     showShips("player-board", placeShipsPlayer());
+        //     showShips("computer-board", placeShipsComputer());
+        //     // reset player and computer alerts
+        //     playerAlerts.innerHTML = "Loaded Saved Game.";
+        //     computerAlerts.innerHTML = "Loaded Saved Game.";
+        // });
     }
 }
 
@@ -88,7 +405,9 @@ document.onreadystatechange = function() {
 
 // Function to clear storage timestamp
 function clearStorageString() {
-    localStorage.removeItem('cs2550timestamp');
+    localStorage.removeItem('name');
+    localStorage.removeItem('username');
+    localStorage.removeItem('date');
 }
 // generate the game grid
 // requires the number of rows and columns along with which table you are creating.

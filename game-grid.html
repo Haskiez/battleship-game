@@ -12,14 +12,21 @@
 </head>
 
 <body>
-    <div id="loginInfo"><span id="loginInfoP"></span><button type="button" class="button" id="clearStorageBtn">Clear Storage</button></div>
+    <div id="loginInfo">
+        <span id="loginInfoP"></span>
+    </div>
+    <div style="display: flex;">
+        <button type="button" class="button" id="clearStorageBtn" style="margin-left: auto;">Clear Storage</button>
+    </div>
     <div class="scoreboard">
         <span id="player-score"><strong>Player: <span id="player-score-number">0</span></strong></span>
         <button type="button" class="button" id="reset-button">Reset</button>
-        <select name="ship-placement-select" id="ship-placement-select">
+        <!-- <select name="ship-placement-select" id="ship-placement-select">
             <option value="0">Random Placement</option>
             <option value="1">Place My Own Ships</option>
-        </select>
+        </select> -->
+        <!-- <button type="button" class="button" id="placeShips">Start Game</button> -->
+        <!-- <button type="button" class="button" id="importSavedGame">Load Saved Game</button> -->
         <span id="computer-score"><strong>Computer: <span id="computer-score-number">0</span></strong></span>
     </div>
 
@@ -38,79 +45,8 @@
 
     <div class="game-state">
         <h3>Game State</h3>
-        <pre><code>
-        gameState: {
-            // For the *BoatPlacement arrays, this will all be integer arrays representing the game board
-            // Each value corresponds to which boat is being represented, for example, the carrier's
-            // spots will be designated by the integer 1 and the destroyer by integer 5.
-            // A zero in the spot means it was hit.
-            // We know a ship was sunk when there are no integers representing it in the matrix.
-            "playerBoatPlacement":       [
-                [1, 1, 0, 1, 1, null, null, null, null, null],
-                [null, null, null, null, null, null, 3, null, null, null],
-                [null, null, null, null, null, null, 3, null, null, null],
-                [null, null, null, null, null, null, 3, null, null, null],
-                [null, null, null, null, null, null, null, null, null, null],
-                [null, null, 2, 2, 0, 2, null, null, null, null],
-                [null, null, null, null, null, null, null, 5, null, null],
-                [null, null, null, null, 4, null, null, 5, null, null],
-                [null, null, null, null, 0, null, null, null, null, null],
-                [null, null, null, null, 4, null, null, null, null, null]
-            ],
-            "computerBoatPlacement":     [
-                [1, 1, 0, 0, 1, null, null, null, null, null],
-                [null, null, null, null, null, null, null, null, null, null],
-                [null, null, null, null, null, null, null, null, null, null],
-                [null, 5, 0, null, null, null, null, null, null, null],
-                [null, null, null, null, null, null, 2, 2, 2, 0],
-                [null, null, null, null, null, null, null, null, null, null],
-                [null, null, null, null, null, null, null, null, null, null],
-                [null, 3, 3, 3, null, null, null, null, null, null],
-                [null, null, null, null, null, null, null, null, null, null],
-                [null, null, null, null, 4, 4, 4, null, null, null]
-            ],
-    
-            // The *Boats array will just keep track of whether a boat has been sunk using an associative array
-            // Using the boats names as the keys. A 0 means it hasn't been sunk, and a 1 means it has.
-            // After every hit, we will look at in the *BoatPlacement matrix for each integer, if none are
-            // Represented, then we can set that boat as sunk.
-            "playerBoats":      ["carrier": 0, "battleship": 0, "cruiser": 1, "submarine": 0, "destroyer": 0],
-            "computerBoats":    ["carrier": 1, "battleship": 0, "cruiser": 1, "submarine": 0, "destroyer": 1],
-            
-            // The *Shots array is the game board grid keeping track of where the player/computer has shot
-            // null represents a spot that hasn't been shot at, 0 is a miss, and 1 is a hit.
-            "playerShots":      [
-                [null, null, 1, null, null, null, null, null, null, 0],
-                [null, null, null, null, null, null, null, null, null, null],
-                [null, null, null, null, null, null, null, null, null, null],
-                [null, 0, null, null, null, null, null, null, null, null],
-                [null, null, null, null, null, null, null, 0, null, null],
-                [0, null, null, null, 1, null, null, null, null, null],
-                [null, null, null, null, null, null, null, null, null, null],
-                [null, null, null, null, null, null, null, null, null, null],
-                [null, null, null, null, 1, null, 0, null, null, null],
-                [null, null, null, null, null, null, null, null, null, 0]
-            ],
-            "computerShots":    [
-                [null, null, 1, 1, null, null, null, 0, null, null],
-                [null, null, null, null, null, null, null, null, null, null],
-                [null, null, null, null, null, 0, null, null, null, null],
-                [null, null, 1, null, null, null, null, null, null, null],
-                [null, null, null, null, null, null, null, null, null, 1],
-                [null, null, null, 0, null, null, null, null, null, null],
-                [0, null, null, null, null, 0, null, null, null, null],
-                [null, null, null, null, null, null, null, null, null, null],
-                [null, null, null, 0, null, null, null, 0, null, null],
-                [null, null, null, null, null, null, null, null, null, 0]
-            ],
-            
-            // Turn variable will determine whose turn it is. 1 is for player. 2 is for computer.
-            "turn":             1,
-    
-            // Gameover really just determines if either player has all their ships sunk,
-            // if so, the other player wins.
-            "gameOver":         false
-        }
+<pre><code id="code-snippet">
+        
 </code></pre>
     </div>
 </body>
