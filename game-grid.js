@@ -22,7 +22,7 @@ document.onreadystatechange = function() {
         generateGrid(11, 11, "computer-board");
 
         showShips("player-board", placeShipsPlayer());
-        showShips("computer-board", placeShipsComputer());
+        placeShipsComputer();
 
 
         // add event listener to clear storage
@@ -57,10 +57,8 @@ document.onreadystatechange = function() {
                                 else {
                                     // Variable to hold what is returned from computerCalcShot();
                                     var computerShotVal = computerCalcShot();
-                                    console.log(computerShotVal);
                                     // Get where the last shot took place
                                     var computerLastShot = computer.last_shot;
-                                    console.log(computerLastShot);
 
                                     // If it was a hit
                                     if (computerShotVal != 0) {
@@ -100,10 +98,8 @@ document.onreadystatechange = function() {
                             else {
                                 // Variable to hold what is returned from computerCalcShot();
                                 var computerShotVal = computerCalcShot();
-                                console.log(computerShotVal);
                                 // Get where the last shot took place
                                 var computerLastShot = computer.last_shot;
-                                console.log(computerLastShot);
 
                                 // If it was a hit
                                 if (computerShotVal != 0) {
@@ -151,10 +147,8 @@ document.onreadystatechange = function() {
 
                             // Variable to hold what is returned from computerCalcShot();
                             var computerShotVal = computerCalcShot();
-                            console.log(computerShotVal);
                             // Get where the last shot took place
                             var computerLastShot = computer.last_shot;
-                            console.log(computerLastShot);
 
                             // If it was a hit
                             if (computerShotVal != 0) {
@@ -223,10 +217,8 @@ document.onreadystatechange = function() {
                                 else {
                                     // Variable to hold what is returned from computerCalcShot();
                                     var computerShotVal = computerCalcShot();
-                                    console.log(computerShotVal);
                                     // Get where the last shot took place
                                     var computerLastShot = computer.last_shot;
-                                    console.log(computerLastShot);
 
                                     // If it was a hit
                                     if (computerShotVal != 0) {
@@ -265,10 +257,8 @@ document.onreadystatechange = function() {
                             else {
                                 // Variable to hold what is returned from computerCalcShot();
                                 var computerShotVal = computerCalcShot();
-                                console.log(computerShotVal);
                                 // Get where the last shot took place
                                 var computerLastShot = computer.last_shot;
-                                console.log(computerLastShot);
 
                                 // If it was a hit
                                 if (computerShotVal != 0) {
@@ -316,10 +306,8 @@ document.onreadystatechange = function() {
                             
                             // Variable to hold what is returned from computerCalcShot();
                             var computerShotVal = computerCalcShot();
-                            console.log(computerShotVal);
                             // Get where the last shot took place
                             var computerLastShot = computer.last_shot;
-                            console.log(computerLastShot);
 
                             // If it was a hit
                             if (computerShotVal != 0) {
@@ -353,8 +341,6 @@ document.onreadystatechange = function() {
                                 cicon.classList.add("fa-circle");
                                 cbox.classList.add("miss");
                             }
-                        } else {
-                            console.log("GoodShot = " + goodShot);
                         }
                     }
                     else {
@@ -377,10 +363,10 @@ document.onreadystatechange = function() {
             generateGrid(11, 11, "computer-board");
             // show the ships on the board
             showShips("player-board", placeShipsPlayer());
-            showShips("computer-board", placeShipsComputer());
+            placeShipsComputer();
             // reset player and computer alerts
-            playerAlerts.innerHTML = "Alerts have been reset.";
-            computerAlerts.innerHTML = "Alerts have been reset.";
+            playerAlerts.innerHTML = "The game has been reset.\n";
+            computerAlerts.innerHTML = "The game has been reset.\n";
         });
 
         // Load saved game data

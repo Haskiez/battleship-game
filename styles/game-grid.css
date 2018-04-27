@@ -76,16 +76,13 @@ textarea {
 }
 
 .scoreboard {
-    text-align: center;
-    margin-bottom: 15px;
+    /* text-align: center;
+    margin-bottom: 15px; */
+    display: flex;
+    justify-content: space-around;
 }
-#player-score {
-    float: right;
-    margin-right: 10px;
-}
-#computer-score {
-    float: left;
-    margin-left: 10px;
+#player-score, #computer-score {
+    font-size: 25px;
 }
 
 #loginInfo {

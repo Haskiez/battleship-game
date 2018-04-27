@@ -11,6 +11,7 @@ var computer = {
     "last_hit": null,
     "direction": null,
     "orphanHits": [],
+    "missesStep3": 0,
     "step": 1,
     "wins": 0
 };
@@ -214,24 +215,13 @@ function shot(id, row, col) {
 // calls the shot function on a random index
 function computerCalcShot() {
     if (computer.step == 1) {
-        console.log("Finding a ship...");
         return findHit();
     }
     else if (computer.step == 2) {
-        console.log("Finding a second hit...");
         return secondHit();
     }
     else if (computer.step == 3) {
-        console.log("Shooting to sink ship...");
         return sinkShip();
-    }
-    else if (computer.step == 4) {
-        console.log("Resetting to step 2...")
-        return populateOrphanHit();
-    }
-    else {
-        debugger;
-        console.log("We should never hit here.");
     }
 }
 
@@ -251,8 +241,6 @@ function findHit() {
         rand2 = Math.floor(Math.random() * 10);
         rRow = gridIndexes[rand1];
         rCol = gridIndexes[rand2];
-        console.log(rRow);
-        console.log(rCol);
     }
     while(rRow > gridIndexes.length || rCol > gridIndexes.length || computerShots[rRow][rCol] != 0)
     // Shoot and store what is returned
@@ -272,7 +260,7 @@ function secondHit() {
     // If we have orphan hits, we are coming from step 4
     if (computer.orphanHits.length != 0) {
         // We assign the first one as the last shot and remove it from the orphan elements
-        computer.last_shot = orphanHits.shift();
+        computer.last_shot = computer.orphanHits.shift();
     }
     // Get the row and col of the first hit I got (don't care about where my last shot was)
     let firstHitRow = computer.first_hit[0];
@@ -301,10 +289,21 @@ function secondHit() {
         firstHitCol--;
         direction = "left";
     }
+    // We don't have any open shots to make
+    else {
+        computerShots[firstHitRow][firstHitCol] = 3;
+        computer.first_hit = null;
+        computer.direction = null;
+        computer.step = 1;
+        return computerCalcShot();
+    }
     // variable to store what is returned from shot function
     let shotVal = shot(computer.id, firstHitRow, firstHitCol);
     // if we sink the ship in this step (should only apply to the destroyer which is two spaces long)
     if (shotVal == 2) {
+        // Mark the ship as sunk for computer
+        computerShots[computer.first_hit[0]][computer.first_hit[1]] = 3;
+        computerShots[firstHitRow][firstHitCol] = 3;
         // Makes step go back to 1
         computer.step = 1;
         // Null out first hit
@@ -344,6 +343,7 @@ function sinkShip() {
     // get our row and column from the last shot
     let row = computer.last_shot[0];
     let col = computer.last_shot[1];
+    debugger;
 
     // Determine which direction we are moving
     if (computer.direction == "left") {
@@ -405,13 +405,31 @@ function sinkShip() {
                             computer.direction = null;
                         }
                     }
+                    // set misses back to 0 to keep track
+                    computer.missesStep3 = 0;
+                }
+                else {
+                    computer.missesStep3++;
+                    if (computer.missesStep3 >= 2) {
+                        // see if we have any orphan hits and push them onto the orphan array
+                        for (let i = 0; i < computerShots.length; ++i) {
+                            for (let k = 0; k < computerShots.length; ++k) {
+                                if (computerShots[i][k] == 2) {
+                                    computer.orphanHits.push([i,k]);
+                                }
+                            }
+                        }
+                        // go back to step 2 and clear out last hit and computer.direction
+                        computer.step = 2;
+                        computer.last_hit = null;
+                        computer.direction = null;
+                    }
                 }
                 // Return shotVal regardless of the result
                 return shotVal;
             }
         }
         if (computer.direction != "left") {
-            console.log("This is supposed to happen, changing directions.");
             
             // loop until we find a miss or are off the grid
             while(computer.direction != "left") {
@@ -423,7 +441,7 @@ function sinkShip() {
                     // we missed again... MEANING we need to find all the orphan hits
                     // and push them into the orphan hits array and go back to step two
                     for (let i = 0; i < computerShots.length; ++i) {
-                        for (let k = 0; k < computerShots.length; ++i) {
+                        for (let k = 0; k < computerShots.length; ++k) {
                             if (computerShots[i][k] == 2) {
                                 computer.orphanHits.push([i,k]);
                             }
@@ -455,7 +473,7 @@ function sinkShip() {
 
                             // see if we have any orphan hits and push them onto the orphan array
                             for (let i = 0; i < computerShots.length; ++i) {
-                                for (let k = 0; k < computerShots.length; ++i) {
+                                for (let k = 0; k < computerShots.length; ++k) {
                                     if (computerShots[i][k] == 2) {
                                         computer.orphanHits.push([i,k]);
                                     }
@@ -478,6 +496,25 @@ function sinkShip() {
                                 computer.direction = null;
                             }
                         }
+                        // set misses back to 0 to keep track
+                        computer.missesStep3 = 0;
+                    }
+                    else {
+                        computer.missesStep3++;
+                        if (computer.missesStep3 >= 2) {
+                            // see if we have any orphan hits and push them onto the orphan array
+                            for (let i = 0; i < computerShots.length; ++i) {
+                                for (let k = 0; k < computerShots.length; ++k) {
+                                    if (computerShots[i][k] == 2) {
+                                        computer.orphanHits.push([i,k]);
+                                    }
+                                }
+                            }
+                            // go back to step 2 and clear out last hit and computer.direction
+                            computer.step = 2;
+                            computer.last_hit = null;
+                            computer.direction = null;
+                        }
                     }
                     // Return shotVal regardless of the result
                     return shotVal;
@@ -490,12 +527,540 @@ function sinkShip() {
     }
     else if (computer.direction == "right") {
         // move to the right of the last shot until we see a spot we haven't shot in or that is a miss
+        while (computer.direction == "right") {
+            // Increment to go to the right
+            col++;
+            // If I have missed here or if I'm outside the bounds of the grid, I need to switch directions
+            if (col > 9 || computerShots[row][col] == 1) {
+                // If col is greater than the size of the grid, move column back to a spot we haven't checked this round
+                if (col > 9) { col -= 2; }
+
+                // Switch directions
+                computer.direction = "left";
+                // Break out of this while loop
+                break;
+            }
+            // Else if I haven't shot here...
+            else if (computerShots[row][col] == 0) {
+                let shotVal = shot(computer.id, row, col);
+                // Update the last shot location
+                computer.last_shot = [row, col];
+                // If shotval is a hit
+                if (shotVal != 0) {
+                    // Update the last hit location
+                    computer.last_hit = [row, col];
+                    // if it was a sink
+                    if (shotVal == 2) {
+                        // Find which ship it was that we sunk
+                        let ship = findShip(playerShips, playerShipPlacement[row][col]);
+
+                        // mark the ship we sunk on computer grid so we know
+                        for (let i = 0; i < ship.length; ++i) {
+                            computerShots[row][col - i] = 3;
+                        }
+
+                        // see if we have any orphan hits and push them onto the orphan array
+                        for (let i = 0; i < computerShots.length; ++i) {
+                            for (let k = 0; k < computerShots.length; ++k) {
+                                if (computerShots[i][k] == 2) {
+                                    computer.orphanHits.push([i,k]);
+                                }
+                            }
+                        }
+
+                        // If we don't have any orphans
+                        if (computer.orphanHits.length == 0) {
+                            // move back to step 1
+                            computer.step = 1;
+                            // clear out hit locations, first and last, and direction
+                            computer.last_hit = null;
+                            computer.first_hit = null;
+                            computer.direction = null;
+                        }
+                        // If we do have orphans
+                        else {
+                            computer.step = 2;
+                            computer.last_hit = null;
+                            computer.direction = null;
+                        }
+                    }
+                    // set misses back to 0 to keep track
+                    computer.missesStep3 = 0;
+                }
+                else {
+                    computer.missesStep3++;
+                    if (computer.missesStep3 >= 2) {
+                        // see if we have any orphan hits and push them onto the orphan array
+                        for (let i = 0; i < computerShots.length; ++i) {
+                            for (let k = 0; k < computerShots.length; ++k) {
+                                if (computerShots[i][k] == 2) {
+                                    computer.orphanHits.push([i,k]);
+                                }
+                            }
+                        }
+                        // go back to step 2 and clear out last hit and computer.direction
+                        computer.step = 2;
+                        computer.last_hit = null;
+                        computer.direction = null;
+                    }
+                }
+                // Return shotVal regardless of the result
+                return shotVal;
+            }
+        }
+        if (computer.direction != "right") {
+            
+            // loop until we find a miss or are off the grid
+            while(computer.direction != "right") {
+                // Decrement col to move to the left now
+                col--;
+            
+                // see if we hit the end of the grid or are at a miss
+                if (col < 0 || computerShots[row][col] == 1) {
+                    // we missed again... MEANING we need to find all the orphan hits
+                    // and push them into the orphan hits array and go back to step two
+                    for (let i = 0; i < computerShots.length; ++i) {
+                        for (let k = 0; k < computerShots.length; ++k) {
+                            if (computerShots[i][k] == 2) {
+                                computer.orphanHits.push([i,k]);
+                            }
+                        }
+                    }
+                    computer.step = 2;
+                    computer.last_hit = null;
+                    computer.direction = null;
+                    return computerCalcShot();
+                }
+                else if (computerShots[row][col] == 0) {
+                    // shoot here
+                    let shotVal = shot(computer.id, row, col);
+                    // Update the last shot location
+                    computer.last_shot = [row, col];
+                    // If shotval is a hit
+                    if (shotVal != 0) {
+                        // Update the last hit location
+                        computer.last_hit = [row, col];
+                        // if it was a sink
+                        if (shotVal == 2) {
+                            // Find which ship it was that we sunk
+                            let ship = findShip(playerShips, playerShipPlacement[row][col]);
+
+                            // mark the ship we sunk on computer grid so we know
+                            for (let i = 0; i < ship.length; ++i) {
+                                computerShots[row][col + i] = 3;
+                            }
+
+                            // see if we have any orphan hits and push them onto the orphan array
+                            for (let i = 0; i < computerShots.length; ++i) {
+                                for (let k = 0; k < computerShots.length; ++k) {
+                                    if (computerShots[i][k] == 2) {
+                                        computer.orphanHits.push([i,k]);
+                                    }
+                                }
+                            }
+
+                            // If we don't have any orphans
+                            if (computer.orphanHits.length == 0) {
+                                // move back to step 1
+                                computer.step = 1;
+                                // clear out hit locations, first and last, and direction
+                                computer.last_hit = null;
+                                computer.first_hit = null;
+                                computer.direction = null;
+                            }
+                            // If we do have orphans
+                            else {
+                                computer.step = 2;
+                                computer.last_hit = null;
+                                computer.direction = null;
+                            }
+                        }
+                        // set misses back to 0 to keep track
+                        computer.missesStep3 = 0;
+                    }
+                    else {
+                        computer.missesStep3++;
+                        if (computer.missesStep3 >= 2) {
+                            // see if we have any orphan hits and push them onto the orphan array
+                            for (let i = 0; i < computerShots.length; ++i) {
+                                for (let k = 0; k < computerShots.length; ++k) {
+                                    if (computerShots[i][k] == 2) {
+                                        computer.orphanHits.push([i,k]);
+                                    }
+                                }
+                            }
+                            // go back to step 2 and clear out last hit and computer.direction
+                            computer.step = 2;
+                            computer.last_hit = null;
+                            computer.direction = null;
+                        }
+                    }
+                    // Return shotVal regardless of the result
+                    return shotVal;
+                }
+            }
+        }
+        else {
+            console.log("This should never be possible");
+        }
     }
     else if (computer.direction == "up") {
         // move up from the last shot until we see a spot we haven't shot in or that is a miss
+        while (computer.direction == "up") {
+            // Decrement to go to up
+            row--;
+            // If I have missed here or if I'm outside the bounds of the grid, I need to switch directions
+            if (row < 0 || computerShots[row][col] == 1) {
+                // If row is negative move row back to a spot we haven't checked this round
+                if (row < 0) { row += 2; }
+
+                // Switch directions
+                computer.direction = "down";
+                // Break out of this while loop
+                break;
+            }
+            // Else if I haven't shot here...
+            else if (computerShots[row][col] == 0) {
+                let shotVal = shot(computer.id, row, col);
+                // Update the last shot location
+                computer.last_shot = [row, col];
+                // If shotval is a hit
+                if (shotVal != 0) {
+                    // Update the last hit location
+                    computer.last_hit = [row, col];
+                    // if it was a sink
+                    if (shotVal == 2) {
+                        // Find which ship it was that we sunk
+                        let ship = findShip(playerShips, playerShipPlacement[row][col]);
+
+                        // mark the ship we sunk on computer grid so we know
+                        for (let i = 0; i < ship.length; ++i) {
+                            computerShots[row + i][col] = 3;
+                        }
+
+                        // see if we have any orphan hits and push them onto the orphan array
+                        for (let i = 0; i < computerShots.length; ++i) {
+                            for (let k = 0; k < computerShots.length; ++k) {
+                                if (computerShots[i][k] == 2) {
+                                    computer.orphanHits.push([i,k]);
+                                }
+                            }
+                        }
+
+                        // If we don't have any orphans
+                        if (computer.orphanHits.length == 0) {
+                            // move back to step 1
+                            computer.step = 1;
+                            // clear out hit locations, first and last, and direction
+                            computer.last_hit = null;
+                            computer.first_hit = null;
+                            computer.direction = null;
+                        }
+                        // If we do have orphans
+                        else {
+                            computer.step = 2;
+                            computer.last_hit = null;
+                            computer.direction = null;
+                        }
+                    }
+                    // set misses back to 0 to keep track
+                    computer.missesStep3 = 0;
+                }
+                else {
+                    computer.missesStep3++;
+                    if (computer.missesStep3 >= 2) {
+                        // see if we have any orphan hits and push them onto the orphan array
+                        for (let i = 0; i < computerShots.length; ++i) {
+                            for (let k = 0; k < computerShots.length; ++k) {
+                                if (computerShots[i][k] == 2) {
+                                    computer.orphanHits.push([i,k]);
+                                }
+                            }
+                        }
+                        // go back to step 2 and clear out last hit and computer.direction
+                        computer.step = 2;
+                        computer.last_hit = null;
+                        computer.direction = null;
+                    }
+                }
+                // Return shotVal regardless of the result
+                return shotVal;
+            }
+        }
+        if (computer.direction != "up") {
+            
+            // loop until we find a miss or are off the grid
+            while(computer.direction != "up") {
+                // Increment row to move to down now
+                row++;
+            
+                // see if we hit the end of the grid or are at a miss
+                if (row > 9 || computerShots[row][col] == 1) {
+                    // we missed again... MEANING we need to find all the orphan hits
+                    // and push them into the orphan hits array and go back to step two
+                    for (let i = 0; i < computerShots.length; ++i) {
+                        for (let k = 0; k < computerShots.length; ++k) {
+                            if (computerShots[i][k] == 2) {
+                                computer.orphanHits.push([i,k]);
+                            }
+                        }
+                    }
+                    computer.step = 2;
+                    computer.last_hit = null;
+                    computer.direction = null;
+                    return computerCalcShot();
+                }
+                else if (computerShots[row][col] == 0) {
+                    // shoot here
+                    let shotVal = shot(computer.id, row, col);
+                    // Update the last shot location
+                    computer.last_shot = [row, col];
+                    // If shotval is a hit
+                    if (shotVal != 0) {
+                        // Update the last hit location
+                        computer.last_hit = [row, col];
+                        // if it was a sink
+                        if (shotVal == 2) {
+                            // Find which ship it was that we sunk
+                            let ship = findShip(playerShips, playerShipPlacement[row][col]);
+
+                            // mark the ship we sunk on computer grid so we know
+                            for (let i = 0; i < ship.length; ++i) {
+                                computerShots[row - i][col] = 3;
+                            }
+
+                            // see if we have any orphan hits and push them onto the orphan array
+                            for (let i = 0; i < computerShots.length; ++i) {
+                                for (let k = 0; k < computerShots.length; ++k) {
+                                    if (computerShots[i][k] == 2) {
+                                        computer.orphanHits.push([i,k]);
+                                    }
+                                }
+                            }
+
+                            // If we don't have any orphans
+                            if (computer.orphanHits.length == 0) {
+                                // move back to step 1
+                                computer.step = 1;
+                                // clear out hit locations, first and last, and direction
+                                computer.last_hit = null;
+                                computer.first_hit = null;
+                                computer.direction = null;
+                            }
+                            // If we do have orphans
+                            else {
+                                computer.step = 2;
+                                computer.last_hit = null;
+                                computer.direction = null;
+                            }
+                        }
+                        // set misses back to 0 to keep track
+                        computer.missesStep3 = 0;
+                    }
+                    else {
+                        computer.missesStep3++;
+                        if (computer.missesStep3 >= 2) {
+                            // see if we have any orphan hits and push them onto the orphan array
+                            for (let i = 0; i < computerShots.length; ++i) {
+                                for (let k = 0; k < computerShots.length; ++k) {
+                                    if (computerShots[i][k] == 2) {
+                                        computer.orphanHits.push([i,k]);
+                                    }
+                                }
+                            }
+                            // go back to step 2 and clear out last hit and computer.direction
+                            computer.step = 2;
+                            computer.last_hit = null;
+                            computer.direction = null;
+                        }
+                    }
+                    // Return shotVal regardless of the result
+                    return shotVal;
+                }
+            }
+        }
+        else {
+            console.log("This should never be possible");
+        }
     }
     else if (computer.direction == "down") {
         // move down from the last shot until we see a spot we haven't shot in or that is a miss
+        while (computer.direction == "down") {
+            // Increment to go down
+            row++;
+            // If I have missed here or if I'm outside the bounds of the grid, I need to switch directions
+            if (row > 9 || computerShots[row][col] == 1) {
+                // If col is greater than the size of the grid, move column back to a spot we haven't checked this round
+                if (row > 9) { col -= 2; }
+
+                // Switch directions
+                computer.direction = "up";
+                // Break out of this while loop
+                break;
+            }
+            // Else if I haven't shot here...
+            else if (computerShots[row][col] == 0) {
+                let shotVal = shot(computer.id, row, col);
+                // Update the last shot location
+                computer.last_shot = [row, col];
+                // If shotval is a hit
+                if (shotVal != 0) {
+                    // Update the last hit location
+                    computer.last_hit = [row, col];
+                    // if it was a sink
+                    if (shotVal == 2) {
+                        // Find which ship it was that we sunk
+                        let ship = findShip(playerShips, playerShipPlacement[row][col]);
+
+                        // mark the ship we sunk on computer grid so we know
+                        for (let i = 0; i < ship.length; ++i) {
+                            computerShots[row - i][col] = 3;
+                        }
+
+                        // see if we have any orphan hits and push them onto the orphan array
+                        for (let i = 0; i < computerShots.length; ++i) {
+                            for (let k = 0; k < computerShots.length; ++k) {
+                                if (computerShots[i][k] == 2) {
+                                    computer.orphanHits.push([i,k]);
+                                }
+                            }
+                        }
+
+                        // If we don't have any orphans
+                        if (computer.orphanHits.length == 0) {
+                            // move back to step 1
+                            computer.step = 1;
+                            // clear out hit locations, first and last, and direction
+                            computer.last_hit = null;
+                            computer.first_hit = null;
+                            computer.direction = null;
+                        }
+                        // If we do have orphans
+                        else {
+                            computer.step = 2;
+                            computer.last_hit = null;
+                            computer.direction = null;
+                        }
+                    }
+                    // set misses back to 0 to keep track
+                    computer.missesStep3 = 0;
+                }
+                else {
+                    computer.missesStep3++;
+                    if (computer.missesStep3 >= 2) {
+                        // see if we have any orphan hits and push them onto the orphan array
+                        for (let i = 0; i < computerShots.length; ++i) {
+                            for (let k = 0; k < computerShots.length; ++k) {
+                                if (computerShots[i][k] == 2) {
+                                    computer.orphanHits.push([i,k]);
+                                }
+                            }
+                        }
+                        // go back to step 2 and clear out last hit and computer.direction
+                        computer.step = 2;
+                        computer.last_hit = null;
+                        computer.direction = null;
+                    }
+                }
+                // Return shotVal regardless of the result
+                return shotVal;
+            }
+        }
+        if (computer.direction != "down") {
+            
+            // loop until we find a miss or are off the grid
+            while(computer.direction != "down") {
+                // Decrement row to move up now
+                row--;
+            
+                // see if we hit the end of the grid or are at a miss
+                if (row < 0 || computerShots[row][col] == 1) {
+                    // we missed again... MEANING we need to find all the orphan hits
+                    // and push them into the orphan hits array and go back to step two
+                    for (let i = 0; i < computerShots.length; ++i) {
+                        for (let k = 0; k < computerShots.length; ++k) {
+                            if (computerShots[i][k] == 2) {
+                                computer.orphanHits.push([i,k]);
+                            }
+                        }
+                    }
+                    computer.step = 2;
+                    computer.last_hit = null;
+                    computer.direction = null;
+                    return computerCalcShot();
+                }
+                else if (computerShots[row][col] == 0) {
+                    // shoot here
+                    let shotVal = shot(computer.id, row, col);
+                    // Update the last shot location
+                    computer.last_shot = [row, col];
+                    // If shotval is a hit
+                    if (shotVal != 0) {
+                        // Update the last hit location
+                        computer.last_hit = [row, col];
+                        // if it was a sink
+                        if (shotVal == 2) {
+                            // Find which ship it was that we sunk
+                            let ship = findShip(playerShips, playerShipPlacement[row][col]);
+
+                            // mark the ship we sunk on computer grid so we know
+                            for (let i = 0; i < ship.length; ++i) {
+                                computerShots[row + i][col] = 3;
+                            }
+
+                            // see if we have any orphan hits and push them onto the orphan array
+                            for (let i = 0; i < computerShots.length; ++i) {
+                                for (let k = 0; k < computerShots.length; ++k) {
+                                    if (computerShots[i][k] == 2) {
+                                        computer.orphanHits.push([i,k]);
+                                    }
+                                }
+                            }
+
+                            // If we don't have any orphans
+                            if (computer.orphanHits.length == 0) {
+                                // move back to step 1
+                                computer.step = 1;
+                                // clear out hit locations, first and last, and direction
+                                computer.last_hit = null;
+                                computer.first_hit = null;
+                                computer.direction = null;
+                            }
+                            // If we do have orphans
+                            else {
+                                computer.step = 2;
+                                computer.last_hit = null;
+                                computer.direction = null;
+                            }
+                        }
+                        // set misses back to 0 to keep track
+                        computer.missesStep3 = 0;
+                    }
+                    else {
+                        computer.missesStep3++;
+                        if (computer.missesStep3 >= 2) {
+                            // see if we have any orphan hits and push them onto the orphan array
+                            for (let i = 0; i < computerShots.length; ++i) {
+                                for (let k = 0; k < computerShots.length; ++k) {
+                                    if (computerShots[i][k] == 2) {
+                                        computer.orphanHits.push([i,k]);
+                                    }
+                                }
+                            }
+                            // go back to step 2 and clear out last hit and computer.direction
+                            computer.step = 2;
+                            computer.last_hit = null;
+                            computer.direction = null;
+                        }
+                    }
+                    // Return shotVal regardless of the result
+                    return shotVal;
+                }
+            }
+        }
+        else {
+            console.log("This should never be possible");
+        }
     }
 }
 
@@ -1001,7 +1566,6 @@ function isWin(id) {
             }
         });
         if (win) { 
-            console.log("Adding to player wins.");
             player.wins++; 
         }
     } else {
@@ -1020,22 +1584,18 @@ function isWin(id) {
 }
 
 function reset() {
-    console.log("Resetting");
-    player = {
-        "id": 1,
-        "last_shot": null,
-        "wins": 0
-    };
-    computer = {
-        "id": 2,
-        "last_shot": null,
-        "first_hit": null,
-        "last_hit": null,
-        "direction": null,
-        "orphanHits": [],
-        "step": 1,
-        "wins": 0
-    };
+    // Reset player
+    player.last_shot = null;
+
+    // Reset Computer
+    computer.last_shot = null;
+    computer.first_hit = null;
+    computer.last_hit = null;
+    computer.direction = null;
+    computer.orphanHits = [];
+    computer.missesStep3 = 0;
+    computer.step = 1;
+
     playerShots = [
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
