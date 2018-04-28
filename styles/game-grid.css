@@ -86,7 +86,7 @@ textarea {
 }
 
 #loginInfo {
-    text-align: right;
+    display: flex;
     font-size: 1.2em;
 }
 

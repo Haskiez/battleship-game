@@ -1,0 +1,18 @@
+.main-container {
+    width: 800px;
+    margin: 0 auto;
+}
+.sub-container p {
+    margin: 0;
+}
+.sub-container p:nth-child(2)::before {
+    content: ">>";
+}
+.sub-container p:nth-child(2) {
+    margin-left: 15px;
+    margin-bottom: 10px;
+}
+
+.flexin {
+    display: flex;
+}
